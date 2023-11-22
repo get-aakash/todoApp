@@ -9,7 +9,7 @@ const ToDo = () => {
     const createToDo = (e)=>{
         
         e.preventDefault()
-        setTodo([...todos, {todo: task, id: globalID++ }])
+        setTodo([...todos, {todo: task, id: globalID++}])
         setTask("")
         
 
@@ -19,7 +19,7 @@ const ToDo = () => {
     }
     
     const deleteItem = (id)=>{
-        console.log(id)
+        setTodo( todos.filter(item =>item.id !== id))
     }
     
 
@@ -33,7 +33,7 @@ const ToDo = () => {
       <ul>
         {todos.map((item) =>{
             return <div key={item.id}>
-                <li >{item.todo}{item.id}</li>
+                <li >{item.todo}</li>
                 <button onClick={() =>deleteItem(item.id)}>Delete</button>
 
             </div> 
