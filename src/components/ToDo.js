@@ -1,44 +1,41 @@
 import React, { useState } from 'react'
-let globalID = 0
+
+
+let globalId = 0
 const ToDo = () => {
-    
-    const [task, setTask] = useState("")
-    const [todos, setTodo] = useState([])
-    
+    const [task , setTask] = useState("")
+    const [todos, setTodos] = useState([])
 
-    const createToDo = (e)=>{
-        
-        e.preventDefault()
-        setTodo([...todos, {todo: task, id: globalID++}])
-        setTask("")
-        
-
-    }
-    const handleChange = (e)=>{
+    const handleOnChange = (e)=>{
         setTask(e.target.value)
+         
     }
-    
-    const deleteItem = (id)=>{
-        setTodo( todos.filter(item =>item.id !== id))
-    }
-    
 
+    const handleOnSubmit = (e)=>{
+        e.preventDefault()
+        setTodos([...todos, {todo:task, id: globalId++}])
+        setTask("")
+    }
+
+    const handleOnDelete = (id)=>{
+        setTodos(oldTodo => oldTodo.filter((item)=>item.id !== id))
+    }
   return (
-    <div className='form'>
-      <h1>Best ToDo App Ever</h1>
-      <form onSubmit={createToDo}>
-      <input type="text" value={task}  onChange={handleChange} />
-      <button type='submit'>Create ToDo</button>
+    <div className='container'>
+      Best ToDo App Ever!!!
+      <form action="" onSubmit={handleOnSubmit}>
+        <input type="text" value={task} onChange={handleOnChange}  />
+        <button type='submit' >Create</button>
       </form>
-      <ul>
-        {todos.map((item) =>{
-            return <div key={item.id}>
-                <li >{item.todo}</li>
-                <button onClick={() =>deleteItem(item.id)}>Delete</button>
-
-            </div> 
-        })}
-      </ul>
+      
+      {
+        todos.map((item)=>(
+            <div key={item.id} className="table">
+            <li>{item.todo}</li>
+            <button onClick={()=>handleOnDelete(item.id)}>Delete</button>
+            </div>
+        ))
+      }
 
       
       
